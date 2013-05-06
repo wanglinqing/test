@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+  <title>无标题文档</title>
+
+  <style type="text/css">
+      body{ border:0px; width:960px;height:680px;margin-left:auto;margin-right:auto;}
+      #center{position:relative;overflow:hidden;}
+      #list{position:absolute;}
+      #center ul {position:absolute; bottom:97px; right:31px; border:0px; z-index:2; list-style-type:none;}
+      #center ul li {float:left;cursor:pointer; margin-left:15px; width:20px; height:20px;}
+      #banner_list a{position:absolute;width: 154px;top: 150px;}
+      #banner_list a button{ position:absolute;}
+      #banner_list img{ position: absolute; width:960px; height:680px; background-repeat:repeat; }
+      #banner_list { position: relative; height: 680px; }
+     .h_title{z-index:2; position:absolute; bottom:17px;left:100px;height: 223px; font-family:sans-serif; font-size:24px; color:#FFFFFF;line-height:40px; text-align:left;}
+     .button{ overflow:hidden; position: absolute; text-decoration:none; background-color:red; color:#000000; height:60px; width:200px; line-height:60px; text-align:center; text-transform:uppercase;}
+     .h_title div{height:40px; margin-top:20px; left:170px; background-color:#333333;}
+  </style>
+
+		  <script type="text/javascript" language="javascript">
+			//自动轮播图片
+			var aa = 0;//上一次点击的index
+			var cc = 0;//自动轮播的下一次要点击的index
+			var sliding = false;
+			//手动切换图片
+			var qiehuan = null;           //setinterval 的一个变量
+			var bb;                       //传递xx，yy函数的一个参数
+			setInterval(changeimg, 3000);
+		
+			function changeimg(){
+			  var li_tags=document.getElementsByTagName("li");
+		
+			  if(cc==li_tags.length-1) {
+				cc=0;
+			  } else {
+				cc+=1;
+			  }
+		
+			  li_tags[cc].click();//调用click事件，相当于手动切换图片
+			}
+			
+			
+			
+			function clickli(index){
+			  if(aa == index || sliding) return;  //点击自身不切换
+			  bb = index;
+		
+			  qiehuan = setInterval('yy(bb)', 5);
+			  sliding = true;
+			  var obj1 = document.getElementsByTagName("li");//点击li变颜色
+		
+			  for(var i=0;i<obj1.length; i++){
+				obj1[i].style.color="black";
+			  }
+		
+			  obj1[index].style.color ="red";
+			}
+		
+		
+			var wenzis = document.getElementsByClassName("h_title");
+			var imgs = document.getElementsByTagName("img");
+		
+			function yy(index){              //图片位移特效
+		
+			  var x=parseInt(imgs[index].style.top);
+			  var y=parseInt(imgs[aa].style.top);
+			  var k=parseInt(wenzis[aa].style.bottom);
+		
+			  if(x >= -680 && x < -400){
+				imgs[index].style.top=x+20+"px";
+				imgs[aa].style.top=y+20+"px";
+				wenzis[aa].style.bottom=k-20+"px";
+			  }else if(x >= -400 && x < 0) {
+				imgs[index].style.top=x+40+"px";
+				imgs[aa].style.top=y+40+"px";
+			  }else {
+				clearInterval(qiehuan);
+				sliding = false;
+				imgs[aa].style.top="-680px";
+				qiehuan = setInterval('xx(bb)', 5);
+				aa = index;
+				cc = index;
+			  }
+			}
+		
+			//h_title向上移动显示
+			function xx(index) {
+			  var k=parseInt(wenzis[index].style.bottom);
+			  if(k < 17){
+				wenzis[index].style.bottom=k+20+"px";
+			  }else{
+				clearInterval(qiehuan);
+			  }
+			}
+		
+			//onmouseover和out事件
+			function mov(self){
+			  self.style.backgroundColor="#666666";
+			}
+		
+			function mou(self){
+			  self.style.backgroundColor="red";
+			}
+		
+		  </script>
+</head>
+
+<body>
+<div id="center">
+  <ul id="list">
+    <li onclick="clickli(0)" style="color: red;">●</li>
+    <li onclick="clickli(1)">●</li>
+    <li onclick="clickli(2)">●</li>
+    <li onclick="clickli(3)">●</li>
+  </ul>
+  <div id="banner_list">
+    <img src="img/1.jpg" alt="" style="top: 0px;"/>
+  <img src="img/2.jpg" alt="" style="top: -680px;"/>
+  <img src="img/3.jpg" alt="" style="top: -680px;"/>
+  <img src="img/4.jpg" alt="" style="top: -680px;" />
+    <div  class="h_title" style="width:590px; bottom:17px;">
+      <div style="height:40px; margin-top:0px;">
+        <span>Seismic Shifts: 10 Visionaries in </span>
+      </div>
+      <div style="height:40px; margin-top:5px;">
+        <span>Contemporary Art and Architecture </span>
+      </div>
+      <div style="height:40px; margin-top:5px;">
+        <span> January 31, 2013 to May 5, 2013, 11 AM - 6 PM </span>
+      </div>
+      <a class="button" href="#" onmouseover="mov(this)" onmouseout="mou(this)">
+        <span><b>Buy Tickets</b></span>
+      </a>
+  </div>
+
+    <div  class="h_title"  style="bottom: -243px; width:300px;">
+      <div style="height:40px; margin-top:0px;">
+        <span>Join us at the </span>
+      </div>
+      <div style="height:40px; margin-top:5px;">
+        <span>National Academy School </span>
+      </div>
+      <a class="button" href="#" style="top:100px;" onmouseover="mov(this)" onmouseout="mou(this)">
+        <span><b>Learn More</b></span>
+      </a>
+    </div>
+
+    <div  class="h_title" style="bottom: -243px; style="width:590px;"">
+      <div style="height:40px; margin-top:0px;">
+        <span>The Annual: 2013 </span>
+      </div>
+      <div style="height:40px; margin-top:5px;">
+        <span> January 31, 2013 to May 5, 2013, 11 AM - 6 PM </span>
+      </div>
+      <a class="button" href="#" style="top:100px;"onmouseover="mov(this)" onmouseout="mou(this)">
+        <span><b>Buy Tickets</b></span>
+      </a>
+    </div>
+
+    <div  class="h_title" style="bottom: -243px; style="width:400px;"">
+      <div style="height:40px; margin-top:0px;">
+        <span>2012 National Academicians: Excellence </span>
+      </div>
+      <div style="height:40px; margin-top:5px;">
+        <span>in American Art and </span>
+      </div>
+      <div style="height:40px; margin-top:5px;">
+        <span>Architecture </span>
+      </div>
+      <a class="button" href="#" onmouseover="mov(this)" onmouseout="mou(this)">
+        <span><b>Learn More</b></span>
+      </a>
+    </div>
+
+
+  </div>
+</div>
+</body>
+</html>
